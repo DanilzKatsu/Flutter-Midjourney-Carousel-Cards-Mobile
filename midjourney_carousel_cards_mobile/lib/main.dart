@@ -1,7 +1,5 @@
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'views/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,19 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0x00080b16),
-      body: Container(),
+      home: const HomeScreen(),
     );
   }
 }
