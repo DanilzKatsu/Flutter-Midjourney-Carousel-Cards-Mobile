@@ -33,23 +33,43 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Stack(
             children: [
               CarouselSlider.builder(
-                  options: CarouselOptions(
-                    height: double.infinity,
-                    autoPlay: false,
-                    viewportFraction: 1,
-                    autoPlayInterval: const Duration(seconds: 2),
+                options: CarouselOptions(
+                  height: double.infinity,
+                  viewportFraction: 1,
+                ),
+                itemCount: list_image.length,
+                itemBuilder: (context, index, realIndex) {
+                  return BackgroundFilter(image: list_image[activeIndex]);
+                },
+              ),
+              Column(
+                children: [
+                  const SizedBox(height: kDefaultSpacing * 5 + 4),
+                  const AppBarCustom(),
+                  const SizedBox(height: kDefaultSpacing * 5 / 2),
+                  const LargeTitle(height: 62, width: 206),
+                  CarouselSlider.builder(
+                    options: CarouselOptions(
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          activeIndex = index;
+                        });
+                      },
+                      height: 557,
+                      viewportFraction: 0.69,
+                      enlargeCenterPage: true,
+                    ),
+                    itemCount: list_image.length,
+                    itemBuilder: (context, index, realIndex) {
+                      return Center(
+                        child: ImageCard(
+                          choose: activeIndex == index,
+                          image: list_image[index],
+                        ),
+                      );
+                    },
                   ),
-                  itemCount: list_image.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return BackgroundFilter(image: list_image[activeIndex]);
-                  }),
-              Positioned(
-                top: 600,
-                left: 156,
-                child: Container(
-                  padding: EdgeInsets.only(bottom: 30),
-                  height: 0,
-                  child: AnimatedSmoothIndicator(
+                  AnimatedSmoothIndicator(
                     activeIndex: activeIndex,
                     count: list_image.length,
                     effect: ExpandingDotsEffect(
@@ -61,35 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       activeDotColor: kWhiteColor.withOpacity(0.8),
                     ),
                   ),
-                ),
-              ),
-              Column(
-                children: [
-                  const SizedBox(height: kDefaultSpacing * 5 + 4),
-                  const AppBarCustom(),
-                  const SizedBox(height: kDefaultSpacing * 5 / 2),
-                  const LargeTitle(
-                    height: 62,
-                    width: 206,
-                  ),
-                  CarouselSlider.builder(
-                      options: CarouselOptions(
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              activeIndex = index;
-                            });
-                          },
-                          height: 557,
-                          autoPlay: false,
-                          viewportFraction: 0.69,
-                          autoPlayInterval: const Duration(seconds: 2),
-                          enlargeCenterPage: true),
-                      itemCount: list_image.length,
-                      itemBuilder: (context, index, realIndex) {
-                        return Center(
-                          child: ImageCard(image: list_image[index]),
-                        );
-                      }),
                   const BottomNavBar(),
                   const SizedBox(height: kDefaultSpacing * 5)
                 ],

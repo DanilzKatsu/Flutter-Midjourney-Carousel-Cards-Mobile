@@ -6,8 +6,10 @@ class ImageCard extends StatefulWidget {
   const ImageCard({
     super.key,
     required this.image,
+    required this.choose,
   });
   final String image;
+  final bool choose;
 
   @override
   State<ImageCard> createState() => _ImageCardState();
@@ -21,20 +23,20 @@ class _ImageCardState extends State<ImageCard> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeIn,
-      height: check ? 491 : 309,
-      width: check ? 276 : 231,
+      height: check && widget.choose ? 491 : 309,
+      width: check && widget.choose ? 276 : 231,
       child: Stack(
         children: [
           AnimatedPositioned(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeIn,
-            bottom: check ? 0 : 8,
-            left: check ? 0 : 1,
+            bottom: check && widget.choose ? 0 : 8,
+            left: check && widget.choose ? 0 : 1,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeIn,
-              height: check ? 296 : 116,
-              width: check ? 270 : 220,
+              height: check && widget.choose ? 296 : 116,
+              width: check && widget.choose ? 270 : 220,
               decoration: const BoxDecoration(
                 color: kWhiteColor,
                 borderRadius: BorderRadius.all(
@@ -93,9 +95,11 @@ class _ImageCardState extends State<ImageCard> {
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    check ? check = false : check = true;
-                  });
+                  if (widget.choose) {
+                    setState(() {
+                      check ? check = false : check = true;
+                    });
+                  }
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -103,8 +107,8 @@ class _ImageCardState extends State<ImageCard> {
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeIn,
-                      height: check ? 370 : 309,
-                      width: check ? 252 : 231,
+                      height: check && widget.choose ? 370 : 309,
+                      width: check && widget.choose ? 252 : 231,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(kBorder),
@@ -120,6 +124,12 @@ class _ImageCardState extends State<ImageCard> {
               ),
             ),
           ),
+          if (widget.choose)
+            Container(
+              height: 100,
+              width: 100,
+              color: Colors.black,
+            )
         ],
       ),
     );
