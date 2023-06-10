@@ -2,6 +2,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:midjourney_carousel_cards_mobile/views/contains/style.dart';
+import 'package:midjourney_carousel_cards_mobile/views/screens/components/image_card2.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../components/background_filter.dart';
 import 'components/appbar_custom.dart';
@@ -86,8 +87,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           enlargeCenterPage: true),
                       itemCount: list_image.length,
                       itemBuilder: (context, index, realIndex) {
+                        if (activeIndex == index) {
+                          return Center(
+                            child: ImageCard(image: list_image[activeIndex]),
+                          );
+                        }
                         return Center(
-                          child: ImageCard(image: list_image[index]),
+                          child: ImageCard2(image: list_image[index]),
                         );
                       }),
                   const BottomNavBar(),
