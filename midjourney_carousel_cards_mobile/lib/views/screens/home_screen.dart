@@ -26,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int activeIndex = 0;
+  bool choosed = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index, realIndex) {
                         if (activeIndex == index) {
                           return Center(
-                            child: ImageCard(image: list_image[activeIndex]),
+                            child: ImageCard(
+                              image: list_image[activeIndex],
+                              choose: choosed,
+                            ),
                           );
                         }
                         return Center(
