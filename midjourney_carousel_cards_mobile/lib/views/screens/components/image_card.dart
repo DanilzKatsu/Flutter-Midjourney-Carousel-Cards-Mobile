@@ -43,14 +43,14 @@ class _ImageCardState extends State<ImageCard> {
                   Radius.circular(kBorder),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(kDefaultSpacing * 2),
+              child: const Padding(
+                padding: EdgeInsets.all(kDefaultSpacing * 2),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text(
                           "/v5_upscale",
                           maxLines: 1,
@@ -71,7 +71,7 @@ class _ImageCardState extends State<ImageCard> {
                         ),
                       ],
                     ),
-                    const Text(
+                    Text(
                       "Fashion photography of a anthropomorphic giraffe dressed in large hiphop clothes from 1980",
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
@@ -124,6 +124,40 @@ class _ImageCardState extends State<ImageCard> {
               ),
             ),
           ),
+          if (!widget.choose)
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeIn,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeIn,
+                        height: check && widget.choose ? 370 : 309,
+                        width: check && widget.choose ? 252 : 231,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(kBorder),
+                          ),
+                          color: widget.choose
+                              ? Colors.transparent
+                              : Colors.black.withOpacity(0.5),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
